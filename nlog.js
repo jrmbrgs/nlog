@@ -1,7 +1,6 @@
 var path = require('path'),
     sys  = require('sys'),
     fs   = require('fs');
-    url = require("url");
 
 
 var L = function( _log_adi){
@@ -9,10 +8,20 @@ var L = function( _log_adi){
     this._log_adi = _log_adi;
     this._log_rf = path.basename(require.main.filename, '.js');
     /// Chech dir
-    var lstats = fs.lstatSync( this._log_adi);
-    console.log( this._log_adi);
-    if( false === lstats.isDirectory( this._log_adi)){
-        fs.mkdirSync(this._log_adi, 0755)
+    try{
+    fs.lstatSync( this._log_adi, function( err, stats){
+        if (err) {
+            fs.mkdirSync(this._log_adi, 0755);
+        } 
+        else{
+            if( false == stats.isDirectory()) {
+                throw new Error('Unable to log in ' + this._log_adi);
+            }
+        }
+    });
+    } catch (err) {
+        fs.mkdirSync(this._log_adi, 0755);
+        console.log( err.code);
     }
     /// File handler
     this._log_afi = this._log_adi + '/' + this._log_rf + '.log'
@@ -27,6 +36,13 @@ L.prototype.note = function( _m, _v, _f){
     if( typeof _m == 'undefined') _m ='';
     var msg = ">" + _f + " " + _m + " : " + _v + "\n";
     this.log( 'note', msg);
+}
+L.prototype.err = function( _m, _v, _f){
+    if( typeof _f == 'undefined') _f ='';
+    if( typeof _v == 'undefined') _v ='';
+    if( typeof _m == 'undefined') _m ='';
+    var msg = ">" + _f + " " + _m + " : " + _v + "\n";
+    this.log( 'error', msg);
 }
 
 L.prototype.log = function( _serverity, _msg){
