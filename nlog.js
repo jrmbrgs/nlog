@@ -31,22 +31,17 @@ var L = function( _log_adi){
 }
 
 L.prototype.note = function( _m, _v, _f){
-    if( typeof _f == 'undefined') _f ='';
-    if( typeof _v == 'undefined') _v ='';
-    if( typeof _m == 'undefined') _m ='';
-    var msg = ">" + _f + " " + _m + " : " + _v + "\n";
-    this.log( 'note', msg);
+    this.log( 'note', _m, _v, _f);
 }
 L.prototype.err = function( _m, _v, _f){
-    if( typeof _f == 'undefined') _f ='';
-    if( typeof _v == 'undefined') _v ='';
-    if( typeof _m == 'undefined') _m ='';
-    var msg = ">" + _f + " " + _m + " : " + _v + "\n";
-    this.log( 'error', msg);
+    this.log( 'error', _m, _v, _f);
 }
 
-L.prototype.log = function( _serverity, _msg){
-    this._fh.write([ new Date(),_serverity, _msg].join(' '));
+L.prototype.log = function( _serverity, _msg, _v, _f){
+    if( typeof _f == 'undefined') _f ='';
+    if( typeof _v == 'undefined') _v ='';
+    var msg = ">" + _f + " " + _msg + " : " + _v + "\n";
+    this._fh.write([ new Date(),_serverity, msg].join(' '));
 }
 
 exports.L = L;
