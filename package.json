@@ -4,6 +4,7 @@
     "author": "JB jeromebourgeais.pro@gmail.com",
     "description": "Just another Node logger",
     "dependencies": {
+        "mocha": "~1.17",
     },
     "scripts": {
         "test": "mocha test/simple.js"
