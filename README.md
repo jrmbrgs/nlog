@@ -2,7 +2,7 @@ nlog
 ====
 
 A simple node file logger
-
+[![Build Status](https://secure.travis-ci.org/jrmbrgs/nlog.png)](http://travis-ci.org/jrmbrgs/nlog)
 
 ### USAGE
 As simple as possible
