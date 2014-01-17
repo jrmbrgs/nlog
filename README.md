@@ -1,8 +1,9 @@
 nlog
 ====
 
-A simple node file logger
-[![Build Status](https://secure.travis-ci.org/jrmbrgs/nlog.png)](http://travis-ci.org/jrmbrgs/nlog)
+A simple node.js file logger
+
+Travis.ci status : [![Build Status](https://secure.travis-ci.org/jrmbrgs/nlog.png)](http://travis-ci.org/jrmbrgs/nlog)
 
 ### USAGE
 As simple as possible
