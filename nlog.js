@@ -1,6 +1,7 @@
 var path = require('path'),
     sys  = require('sys'),
     fs   = require('fs'),
+    util = require('util'),
     e   = require('events');
 
 
@@ -33,23 +34,27 @@ var L = function( _log_adi){
 }
 sys.inherits(L, e.EventEmitter);
 
-L.prototype.note = function( _m, _v, _f){
-    this.log( 'note', _m, _v, _f);
+L.prototype.debug = function( _m, _vs, _f){
+    this.log( 'debug', _m, _vs, _f);
 }
-L.prototype.err = function( _m, _v, _f){
-    this.log( 'error', _m, _v, _f);
+L.prototype.note = function( _m, _vs, _f){
+    this.log( 'note', _m, _vs, _f);
 }
-L.prototype.warn = function( _m, _v, _f){
-    this.log( 'warning', _m, _v, _f);
+L.prototype.warn = function( _m, _vs, _f){
+    this.log( 'warning', _m, _vs, _f);
+}
+L.prototype.err = function( _m, _vs, _f){
+    this.log( 'error', _m, _vs, _f);
 }
 
-L.prototype.log = function( _serverity, _m, _v, _f){
+L.prototype.log = function( _serverity, _m, _vs, _f){
     // emit event on each log
-    this.emit('log', _serverity, _m, _v, _f );
     var m = typeof _m !== 'undefined' ? _m : '';
-    var v = typeof _v !== 'undefined' ? _v : '';
+    var vs = typeof _vs !== 'undefined' ? _vs : [];
     var f = typeof _f !== 'undefined' ? _f : '';
-    var msg = ">" + f + " " + m + " : " + v + "\n";
+    var mvs = util.format( m, vs);
+    var msg = ">" + f + " " + mvs + "\n";
+    this.emit('log', _serverity, m, vs, mvs, _f );
     this._fh.write([ new Date(),_serverity, msg].join(' '));
 }
 
