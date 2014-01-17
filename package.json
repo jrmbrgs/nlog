@@ -1,0 +1,17 @@
+{
+    "name": "nlog",
+    "version": "0.1.0",
+    "author": "JB jeromebourgeais.pro@gmail.com",
+    "description": "Just another Node logger",
+    "dependencies": {
+        "trace": "~3.4.7",
+    },
+    "scripts": {
+        "test": "mocha test/simple.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/jrmbrgs/nlog"
+    },
+    "license": "BSD"
+}
